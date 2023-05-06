@@ -39,17 +39,27 @@
         await logJSONData();
         const emailText = document.getElementById("email-text").value;
         console.log(emailText);
-        const res = await fetch(
-          "https://pzhv57i5yi33mocuw2y5m7yh6i0vfigp.lambda-url.us-east-1.on.aws/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email: emailText }),
-          }
-        );
-        console.log({ res });
+        try {
+          const res = await fetch(
+            "https://pzhv57i5yi33mocuw2y5m7yh6i0vfigp.lambda-url.us-east-1.on.aws/",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email: emailText }),
+            }
+          );
+          const data = await res.json();
+          console.log({ res, jsoned });
+          const resultsDiv = document.getElementById("results");
+          resultsDiv.innerHTML = `
+                  <h2 class="text-xl font-bold mb-4">Results</h2>
+                  <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+        } catch (error) {
+          console.error(error);
+        }
         //   .then((response) => response.json())
         //   .then((data) => {
         //     const resultsDiv = document.getElementById("results");
