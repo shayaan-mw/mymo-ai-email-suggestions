@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-100">
-    <div class="max-w-3xl mx-auto py-12">
+    <div class="max-w-6xl mx-auto py-12">
       <h1 class="text-3xl font-bold mb-4">MyMo AI Email Completion</h1>
       <form onsubmit="submitForm(event)">
         <div class="mb-4">
@@ -53,8 +53,37 @@
           console.log({ res, data });
           const resultsDiv = document.getElementById("results");
           resultsDiv.innerHTML = `
-                  <h2 class="text-xl font-bold mb-4">Results</h2>
-                  <pre>${JSON.stringify(data, null, 2)}</pre>
+                <h2 class="text-3xl font-bold mb-4">Suggested Email</h2>
+                <div class="bg-white shadow overflow-scroll sm:rounded-md">
+                    <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Keywords: ${data.keywords.join(", ")}
+                    </h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                        Prompt: ${data.prompt}
+                    </p>
+                    </div>
+                    <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                    <dl class="sm:divide-y sm:divide-gray-200">
+                        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Original Email
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <pre>${data.original}</pre>
+                        </dd>
+                        </div>
+                        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Suggested Email
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <pre>${data.suggested}</pre>
+                        </dd>
+                        </div>
+                    </dl>
+                    </div>
+                </div>
                 `;
         } catch (error) {
           console.error(error);
