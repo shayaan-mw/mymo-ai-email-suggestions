@@ -1,0 +1,1 @@
+# mymo-ai-email-suggestions
